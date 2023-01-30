@@ -1,0 +1,58 @@
+##
+
+Its an Back-end application for manage haircuts schedules of a barber's clients. 
+
+## How to run for Development
+
+1. Clone repository
+2. install all dependences:
+'npm i'
+
+3. Configure .env file as .env.example
+4. Migrate database :
+'npx prisma migrate dev'
+
+5. Seed database:
+'npm run prisma:seed'
+6. Run in dev environment:
+'npm run dev'
+
+## Build for start
+
+1. Run:
+'npx tsc'
+
+2. Run:
+'npm run start'
+
+## Routes:
+
+1. POST /schedule
+Create a new schedule.
+
+expect object: 
+{
+    "client_id": number,
+    "haircut_id": number,
+    "employee_id": number,
+    "date": "dateTime"
+}
+
+returns 200 if sucess on creation.
+returns 400 if invalid object
+
+2. POST user/schedules
+Delete a created schedule.
+
+expect object: 
+{
+    "id": number,
+}
+
+returns 200 if sucess on delete.
+returns 400 if invalid object
+
+3. GET /schedule
+Show all schedules.
+
+returns 200 on sucess.

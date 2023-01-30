@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model clients {
+  id        Int         @id @default(autoincrement())
+  name      String      @db.VarChar(100)
+  phone     String      @unique @db.VarChar(11)
+  cpf       String      @unique @db.VarChar(11)
+  schedules schedules[]
+}
+
+model employees {
+  id        Int         @id @default(autoincrement())
+  name      String      @db.VarChar(100)
+  schedules schedules[]
+}
+
+model haircuts {
+  id        Int         @id @default(autoincrement())
+  haircut   String      @unique @db.VarChar(100)
+  schedules schedules[]
+}
+
+model schedules {
+  id          Int       @id @default(autoincrement())
+  client_id   Int
+  haircut_id  Int
+  employee_id Int
+  date        DateTime  @db.Date
+  clients     clients   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  employees   employees @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  haircuts    haircuts  @relation(fields: [haircut_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
